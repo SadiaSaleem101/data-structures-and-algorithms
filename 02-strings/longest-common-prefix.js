@@ -1,34 +1,29 @@
-// Longest Common Prefix
-// Find the longest starting part common to all strings.
+// Count the Number of Words
+// Count how many words are present in a sentence.
 
 // Example:
-// Input: ["flower", "flow", "flight"]
-// Output: "fl"
+// Input: "I love learning JavaScript"
+// Output: 4
 
-function longestCommonPrefix(words) {
-    // Start with the first word
-    let prefix = words[0];
+function countWords(str) {
+    // Remove extra spaces from the beginning and end
+    str = str.trim();
 
-    // Compare it with the remaining words
-    for (let i = 1; i < words.length; i++) {
-
-        // Keep removing the last character
-        // until the word starts with the prefix
-        while (!words[i].startsWith(prefix)) {
-            prefix = prefix.slice(0, -1);
-
-            // If there is no common prefix
-            if (prefix === "") {
-                return "";
-            }
-        }
+    // If the string is empty, return 0
+    if (str === "") {
+        return 0;
     }
 
-    return prefix;
+    // Split the sentence into words
+    let words = str.split(/\s+/);
+
+    return words.length;
 }
 
-// Example
-console.log(
-    longestCommonPrefix(["flower", "flow", "flight"])
-);
-// Output: fl
+// Examples
+console.log(countWords("I love learning JavaScript")); // 4
+console.log(countWords("Hello world")); // 2
+console.log(countWords("")); // 0
+
+// Time Complexity: O(n)
+// Space Complexity: O(n)
