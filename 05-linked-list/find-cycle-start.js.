@@ -1,0 +1,60 @@
+
+class ListNode {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+function findCycleStart(head) {
+    let slow = head;
+    let fast = head;
+
+    // Step 1: Detect the cycle
+    while (fast !== null && fast.next !== null) {
+        slow = slow.next;
+        fast = fast.next.next;
+
+        if (slow === fast) {
+            break;
+        }
+    }
+
+    // No cycle found
+    if (fast === null || fast.next === null) {
+        return null;
+    }
+
+    // Step 2: Find where the cycle begins
+    slow = head;
+
+    while (slow !== fast) {
+        slow = slow.next;
+        fast = fast.next;
+    }
+
+    return slow;
+}
+
+// Create: 1 -> 2 -> 3 -> 4 -> 5
+//                  ^         |
+//                  |_________|
+let head = new ListNode(1);
+let node2 = new ListNode(2);
+let node3 = new ListNode(3);
+let node4 = new ListNode(4);
+let node5 = new ListNode(5);
+
+head.next = node2;
+node2.next = node3;
+node3.next = node4;
+node4.next = node5;
+node5.next = node3; // Cycle starts at node 3
+
+console.log(findCycleStart(head).value); // 3
+
+// List without a cycle
+let head2 = new ListNode(10);
+head2.next = new ListNode(20);
+
+console.log(findCycleStart(head2)); // null
